@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>매드포갈릭 멤버십 활용 가이드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --silver-main: #7a7a7a;
+  --silver-bg: #f5f5f5;
+  --silver-accent: #4a4a4a;
+  --rosegold-main: #b8734a;
+  --rosegold-bg: #fdf3ec;
+  --rosegold-accent: #8a4a28;
+  --platinum-main: #9a7d2e;
+  --platinum-bg: #fdf8ec;
+  --platinum-accent: #5c4a10;
+}
+
+body {
+  font-family: 'DM Sans', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  background: #fff;
+  color: #1a1a1a;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── TAB NAV ── */
+.tab-nav {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 15px 6px 13px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #ccc;
+  letter-spacing: 0.01em;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.tab-btn[data-tab="silver"].active   { color: var(--silver-accent); border-color: var(--silver-main); }
+.tab-btn[data-tab="rosegold"].active { color: var(--rosegold-accent); border-color: var(--rosegold-main); }
+.tab-btn[data-tab="platinum"].active { color: var(--platinum-accent); border-color: var(--platinum-main); }
+
+/* ── PANELS ── */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── HERO ── */
+.hero {
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-inner {
+  padding: 40px 24px 36px;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.25;
+}
+
+.silver  .hero-eyebrow { color: var(--silver-main); }
+.rosegold .hero-eyebrow { color: var(--rosegold-main); }
+.platinum .hero-eyebrow { color: var(--platinum-main); }
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.hero h1 em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.silver  .hero h1 em { color: var(--silver-main); }
+.rosegold .hero h1 em { color: var(--rosegold-main); }
+.platinum .hero h1 em { color: var(--platinum-main); }
+
+.hero-sub {
+  font-size: 13.5px;
+  color: #666;
+  line-height: 1.7;
+  max-width: 300px;
+}
+
+.hero-stripe {
+  height: 4px;
+  width: 100%;
+}
+.silver  .hero-stripe { background: linear-gradient(90deg, var(--silver-main), var(--silver-bg)); }
+.rosegold .hero-stripe { background: linear-gradient(90deg, var(--rosegold-main), var(--rosegold-bg)); }
+.platinum .hero-stripe { background: linear-gradient(90deg, var(--platinum-main), var(--platinum-bg)); }
+
+/* ── SCENARIO ── */
+.scenario {
+  padding: 36px 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.scenario-header {
+  margin-bottom: 28px;
+}
+
+.scene-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  opacity: 0.07;
+  margin-bottom: -18px;
+  margin-left: -3px;
+}
+
+.silver  .scene-num { color: var(--silver-accent); }
+.rosegold .scene-num { color: var(--rosegold-accent); }
+.platinum .scene-num { color: var(--platinum-accent); }
+
+.scenario h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 6px;
+}
+
+.scenario-sub {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.6;
+}
+
+/* ── STEPS ── */
+.steps { display: flex; flex-direction: column; }
+
+.step {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 0 14px;
+  padding: 18px 0;
+  border-top: 1px dashed #e8e8e8;
+}
+.step:first-child { border-top: none; padding-top: 0; }
+
+.step-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2px;
+}
+
+.step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.silver  .step-dot { background: var(--silver-main); }
+.rosegold .step-dot { background: var(--rosegold-main); }
+.platinum .step-dot { background: var(--platinum-main); }
+
+.step-line {
+  width: 1px;
+  flex: 1;
+  min-height: 20px;
+  margin-top: 6px;
+  opacity: 0.2;
+}
+.silver  .step-line { background: var(--silver-main); }
+.rosegold .step-line { background: var(--rosegold-main); }
+.platinum .step-line { background: var(--platinum-main); }
+
+.step:last-child .step-line { display: none; }
+
+.step-body {}
+
+.step-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.silver  .step-label { color: var(--silver-main); }
+.rosegold .step-label { color: var(--rosegold-main); }
+.platinum .step-label { color: var(--platinum-main); }
+
+.step-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 6px;
+  color: #111;
+}
+
+.step-desc {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* ── MENU CHIPS ── */
+.menu-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.menu-chip {
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  border: 1px solid;
+}
+.silver  .menu-chip { border-color: var(--silver-main); color: var(--silver-accent); background: var(--silver-bg); }
+.rosegold .menu-chip { border-color: var(--rosegold-main); color: var(--rosegold-accent); background: var(--rosegold-bg); }
+.platinum .menu-chip { border-color: var(--platinum-main); color: var(--platinum-accent); background: var(--platinum-bg); }
+
+/* ── TIP BOX ── */
+.tip-box {
+  margin-top: 26px;
+  padding: 20px;
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.silver  .tip-box { background: var(--silver-bg); }
+.rosegold .tip-box { background: var(--rosegold-bg); }
+.platinum .tip-box { background: var(--platinum-bg); }
+
+.tip-box::before {
+  content: 'TIP';
+  position: absolute;
+  right: 16px;
+  top: 12px;
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 700;
+  opacity: 0.06;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.tip-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 2px;
+  color: #fff;
+}
+.silver  .tip-tag { background: var(--silver-main); }
+.rosegold .tip-tag { background: var(--rosegold-main); }
+.platinum .tip-tag { background: var(--platinum-main); }
+
+.tip-flow {
+  font-size: 13px;
+  font-weight: 600;
+  color: #222;
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+
+.tip-desc {
+  font-size: 12.5px;
+  color: #666;
+  line-height: 1.7;
+}
+
+/* ── DIVIDER between scenarios ── */
+.scenario-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 24px;
+  gap: 12px;
+  color: #ddd;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+.scenario-divider span { white-space: nowrap; }
+.scenario-divider::before,
+.scenario-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+</style>
+</head>
+<body>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" data-tab="silver">🩶 Silver</button>
+  <button class="tab-btn" data-tab="rosegold">🌹 Rose Gold</button>
+  <button class="tab-btn" data-tab="platinum">👑 Platinum</button>
+</nav>
+
+<!-- ══════════ SILVER ══════════ -->
+<div class="tab-panel silver active" id="panel-silver">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Mad for Garlic &nbsp;·&nbsp; Silver</div>
+      <h1>혜택을<br><em>나눠 쓸수록</em><br>알차진다</h1>
+      <p class="hero-sub">데이트부터 평범한 한 끼까지, 실버 패키지를 더 알차게 즐겨보세요.</p>
+    </div>
+    <div class="hero-stripe"></div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">01</div>
+      <h2>둘이 맛있는 거<br>먹고 싶은 날</h2>
+      <p class="scenario-sub">커플 식사권 하나면 둘이 즐길 메뉴 고민 끝!</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">웨이팅이 있다면 VIP 우선 안내부터</div>
+          <div class="step-desc">주말이나 저녁처럼 웨이팅이 있는 시간대라면 VIP 우선 안내 혜택을 먼저 활용해 보세요. 기다리는 시간은 줄이고, 둘만의 식사는 조금 더 여유롭게!</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">커플 식사권으로 둘이 푸짐하게</div>
+          <div class="step-desc">둘이 방문했다면 커플 식사권을 꺼내기 좋은 타이밍!</div>
+          <div class="menu-list">
+            <span class="menu-chip">🍝 넘침주의 파스타</span>
+            <span class="menu-chip">🍕 고르곤졸라 피자</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">40% 할인권은 다음을 위해 KEEP</div>
+          <div class="step-desc">커플 식사권만으로 충분한 날이라면 40% 할인권은 굳이 함께 사용할 필요 없어요. 다음에 당기는 단품 메뉴가 생겼을 때를 위해 남겨두는 것도 실버를 알차게 쓰는 방법!</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Silver Tip</div>
+      <div class="tip-flow">VIP 우선 안내 → 커플 식사권 → 40% 할인권은 KEEP!</div>
+      <div class="tip-desc">한 번에 혜택을 다 쓰기보다 외식할 때마다 하나씩 꺼내 쓰는 게 실버의 매력. 오늘은 식사권, 다음 외식은 할인권 ✨</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">02</div>
+      <h2>오늘은 먹고 싶었던<br>그 메뉴 먹는 날</h2>
+      <p class="scenario-sub">아껴둔 40% 할인권을 꺼낼 타이밍이에요.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">오늘의 메뉴는 취향대로 선택</div>
+          <div class="step-desc">식사권에 정해진 메뉴가 아니라 내가 지금 가장 먹고 싶은 메뉴를 골라보세요. 파스타도 좋고, 피자도 좋고, 스테이크가 당긴다면 스테이크도 OK!</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">먹고 싶었던 메뉴에 40% 할인권 활용</div>
+          <div class="step-desc">평소 가격 때문에 한 번 더 고민했던 메뉴가 있다면 오늘이 바로 그날!</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">함께 먹을 메뉴가 더 필요하다면 세트도 확인</div>
+          <div class="step-desc">일행과 함께라면 VIP 세트 30% 할인 혜택도 기억해 두세요.</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Silver Tip</div>
+      <div class="tip-flow">먹고 싶은 메뉴 선택 → 40% 메뉴 할인권 활용</div>
+      <div class="tip-desc">쿠폰에 메뉴를 맞추지 말고, 먹고 싶은 메뉴에 쿠폰 맞추기 ✨</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">03</div>
+      <h2>퇴근했는데 저녁<br>차리기 싫은 날</h2>
+      <p class="scenario-sub">오늘 한 끼 정도는 편하게 해결해도 좋잖아요.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">저녁 웨이팅에는 VIP 우선 안내</div>
+          <div class="step-desc">배고픈 퇴근길, 기다리는 시간부터 줄여보세요.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">둘이라면 커플 식사권, 여럿이라면 세트</div>
+          <div class="step-desc">동료나 친구까지 함께라면 여러 메뉴를 나눠 먹을 수 있는 세트 메뉴를 선택해 보세요.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">세트 메뉴라면 VIP 30% 할인</div>
+          <div class="step-desc">거창한 약속이 없는 평범한 저녁에도 VIP 혜택은 그대로!</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Silver Tip</div>
+      <div class="tip-flow">VIP 우선 안내 → 커플 식사권 OR 세트 30% 할인</div>
+      <div class="tip-desc">"오늘 저녁 뭐 먹지?" 싶은 평범한 날에도 하나씩 꺼내 쓰는 것. 이런 날이 많을수록 실버는 더 알차져요 ✨</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">04</div>
+      <h2>큰 쿠폰 없이도<br>알뜰하게 먹는 날</h2>
+      <p class="scenario-sub">중요한 약속을 위해 아껴두고, 오늘은 VIP 혜택만 가볍게.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">웨이팅이 있다면 VIP 우선 안내</div>
+          <div class="step-desc">큰 쿠폰을 사용하지 않는 날에도 VIP 혜택은 그대로 이용할 수 있어요.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">여럿이라면 세트 메뉴 선택</div>
+          <div class="step-desc">피자부터 파스타, 스테이크까지 한 번에 즐길 수 있어 메뉴 고민도 가볍게!</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">VIP 세트 30% 할인 적용</div>
+          <div class="step-desc">식사권이나 40% 할인권을 사용하지 않아도 VIP 혜택만으로 알뜰한 외식 완성!</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Silver Tip</div>
+      <div class="tip-flow">VIP 우선 안내 → 세트 메뉴 → VIP 30% 할인</div>
+      <div class="tip-desc">혜택을 나눠 쓰는 것도 실버를 오래 즐기는 방법 ✨</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">05</div>
+      <h2>식사권도 할인권도<br>다 쓴 다음</h2>
+      <p class="scenario-sub">실버의 진짜 활용은 여기서부터일지도 몰라요.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">쿠폰이 없어도 VIP 우선 안내</div>
+          <div class="step-desc">식사권과 할인권을 모두 사용했더라도 VIP 혜택은 이용기간 동안 계속!</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">다음 외식은 세트 메뉴 30% 할인으로</div>
+          <div class="step-desc">친구와의 약속부터 가족 외식까지, 세트 메뉴를 이용하는 날이면 다시 실버가 활약할 차례!</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">다음 방문에도, 그다음 방문에도</div>
+          <div class="step-desc">이용기간 동안 매드포갈릭을 방문할 때마다 사용 가능한 VIP 혜택이 있는지 확인해 보세요.</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Silver Tip</div>
+      <div class="tip-flow">식사권 완료 → 40% 할인권 완료 → VIP 혜택은 계속</div>
+      <div class="tip-desc">실버는 큰 혜택 두 번으로 끝나는 패키지가 아니에요. 한 번 사고, 외식할 때마다 알뜰하게 ✨</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ ROSE GOLD ══════════ -->
+<div class="tab-panel rosegold" id="panel-rosegold">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Mad for Garlic &nbsp;·&nbsp; Rose Gold</div>
+      <h1>와인까지<br><em>챙기는</em><br>여유</h1>
+      <p class="hero-sub">가족 외식부터 특별한 약속까지, 로즈골드 패키지를 더 알차게 즐겨보세요.</p>
+    </div>
+    <div class="hero-stripe"></div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">01</div>
+      <h2>온 가족이 모이는<br>주말 외식</h2>
+      <p class="scenario-sub">스테이크부터 피자까지 푸짐하게 차려보세요 🥩</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">가족 외식의 시작은 VIP 우선 안내</div>
+          <div class="step-desc">아이부터 부모님까지 함께하는 날, 기다리는 시간을 줄이고 보다 편안하게 식사를 시작하세요.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">스테이크 패밀리 식사권으로 메인 해결</div>
+          <div class="step-desc">여럿이 함께하는 날에는 스테이크 패밀리 식사권으로 한 상을 완성해 보세요.</div>
+          <div class="menu-list">
+            <span class="menu-chip">🥩 포레스트 스트립 스테이크</span>
+            <span class="menu-chip">🍚 톡톡갈릭 시즐링 라이스</span>
+            <span class="menu-chip">🍕 블라썸 프로슈토 &amp; 스노잉 피자</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">최애 메뉴는 50% 할인으로 하나 더</div>
+          <div class="step-desc">가족 모두가 좋아하는 메뉴 하나를 더해 더욱 풍성한 한 상을 완성!</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Rose Gold Tip</div>
+      <div class="tip-flow">VIP 우선 안내 → 스테이크 패밀리 식사권 → 추가 메뉴 50% 할인</div>
+      <div class="tip-desc">메인은 푸짐하게, 추가 메뉴는 부담 가볍게 🌹</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">02</div>
+      <h2>우리끼리 준비하는<br>작은 기념일</h2>
+      <p class="scenario-sub">거창한 파인다이닝 대신 우리답게 특별한 저녁을.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">예약하기 애매한 날에도 VIP 우선 안내</div>
+          <div class="step-desc">특별한 날인데 웨이팅으로 시간을 보내기는 아쉽죠. VIP 우선 안내 혜택으로 기분 좋은 저녁을 시작해 보세요.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">오늘의 주인공이 먹고 싶은 메뉴 + 50% 할인</div>
+          <div class="step-desc">평소 가격 때문에 고민했던 메뉴가 있다면 이런 날 꺼내기 좋아요.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">아껴둔 와인이 있다면 오늘 오픈 🍷</div>
+          <div class="step-desc">VIP 콜키지 무료 혜택을 활용해 좋아하는 와인을 가져오고, 우리만의 기념일을 완성해 보세요.</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Rose Gold Tip</div>
+      <div class="tip-flow">VIP 우선 안내 → 50% 할인 → 콜키지 무료</div>
+      <div class="tip-desc">식사권은 가족 외식을 위해 남겨두고, 기념일에는 할인권과 VIP 혜택만 조합해도 충분해요 🌹</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">03</div>
+      <h2>친구들과 와인<br>한 병 하는 날</h2>
+      <p class="scenario-sub">좋아하는 사람들과 맛있는 음식, 그리고 와인 한 병 🍷</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">먼저 도착했다면 VIP 우선 안내</div>
+          <div class="step-desc">친구들이 하나둘 모이는 저녁 시간, 웨이팅이 있다면 VIP 우선 안내 혜택을 활용해 보세요.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">여러 명이라면 세트 메뉴로 다양하게</div>
+          <div class="step-desc">피자, 파스타, 스테이크를 다양하게 즐기고 싶다면 세트 메뉴를 골라보세요.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">세트 메뉴는 VIP 30% 할인</div>
+          <div class="step-desc">친구들과 메뉴를 다양하게 나눠 먹는 날일수록 활용하기 좋은 혜택!</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 4</div>
+          <div class="step-title">오늘의 와인은 직접 골라오기</div>
+          <div class="step-desc">모임에 어울리는 와인을 미리 골라왔다면 콜키지 무료 혜택까지 🍷</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Rose Gold Tip</div>
+      <div class="tip-flow">VIP 우선 안내 → 세트 30% 할인 → 콜키지 무료</div>
+      <div class="tip-desc">쿠폰은 아끼고, VIP는 제대로 활용하기 🌹</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">04</div>
+      <h2>식사권은 다 썼는데<br>또 가고 싶은 날</h2>
+      <p class="scenario-sub">로즈골드 혜택이 끝난 건 아니에요.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">식사권이 없어도 VIP 우선 안내</div>
+          <div class="step-desc">큰 쿠폰을 모두 사용했더라도 VIP 우선 안내 혜택은 계속!</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">오늘은 세트 메뉴 30% 할인</div>
+          <div class="step-desc">패키지의 큰 쿠폰을 다 사용한 뒤에도 외식할 때마다 활용할 수 있다는 게 VIP 혜택의 포인트!</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">와인을 가져왔다면 콜키지까지 무료</div>
+          <div class="step-desc">콜키지 무료 혜택까지 더하면 식사권 없이도 로즈골드를 알차게 활용할 수 있어요 🍷</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Rose Gold Tip</div>
+      <div class="tip-flow">VIP 우선 안내 → 세트 30% 할인 → 콜키지 무료</div>
+      <div class="tip-desc">이용기간 동안 남아 있는 VIP 혜택을 챙기는 것이 로즈골드를 끝까지 알차게 쓰는 방법 🌹</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PLATINUM ══════════ -->
+<div class="tab-panel platinum" id="panel-platinum">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Mad for Garlic &nbsp;·&nbsp; Platinum</div>
+      <h1>혜택을<br><em>아낄 필요</em><br>없는 등급</h1>
+      <p class="hero-sub">내 상황에 맞게 플래티넘 패키지를 더 알차게 즐겨보세요.</p>
+    </div>
+    <div class="hero-stripe"></div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">01</div>
+      <h2>부모님 모시고<br>특별한 외식</h2>
+      <p class="scenario-sub">두 가족이 함께 모이는 특별한 날, 플래티넘 혜택을 아낌없이 👑</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">두 가족이 함께라면 VIP 우선 안내부터</div>
+          <div class="step-desc">부모님부터 아이들까지, 시작부터 오래 기다릴 필요 없죠.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">식사권 2장으로 총 5가지 메뉴</div>
+          <div class="step-desc">여럿이 함께하는 날이야말로 식사권 2장을 한 번에 활용하기 좋은 날!</div>
+          <div class="menu-list">
+            <span class="menu-chip">🥩 포레스트 스트립 스테이크</span>
+            <span class="menu-chip">🍚 톡톡갈릭 시즐링 라이스</span>
+            <span class="menu-chip">🍕 블라썸 프로슈토 &amp; 스노잉 피자</span>
+            <span class="menu-chip">🍝 넘침주의 파스타</span>
+            <span class="menu-chip">🍕 고르곤졸라 피자</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">그래도 부족하다면 50% 할인권까지</div>
+          <div class="step-desc">추가 메뉴는 할인권으로 부담을 가볍게!</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 4</div>
+          <div class="step-title">마지막은 디저트까지 플래티넘답게 🍰</div>
+          <div class="step-desc">입장부터 식사, 추가 메뉴, 디저트까지 오늘 하루만큼은 제대로 누려보세요.</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Platinum Tip</div>
+      <div class="tip-flow">VIP 우선 안내 → 식사권 2장 → 50% 할인 → 디저트 무료</div>
+      <div class="tip-desc">대접은 풍성하게, 플래티넘 혜택은 아낌없이 👑</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">02</div>
+      <h2>둘이 가볍게<br>즐기는 데이트</h2>
+      <p class="scenario-sub">부담은 가볍게, 데이트는 제대로 즐겨보세요.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">웨이팅은 줄이고, 데이트는 바로 시작</div>
+          <div class="step-desc">VIP 우선 안내 혜택부터 활용해 보세요. 기다리는 시간은 줄이고, 둘만의 시간은 더 여유롭게!</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">커플 식사권으로 둘이 알차게</div>
+          <div class="step-desc">매드포갈릭다운 메뉴로 가볍게 즐겨보세요.</div>
+          <div class="menu-list">
+            <span class="menu-chip">🍝 갈릭 명란 파스타</span>
+            <span class="menu-chip">🍕 갈릭 스노잉 피자</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">조금 더 특별하게, 부라타 샐러드 추가 🥗</div>
+          <div class="step-desc">상큼한 샐러드를 곁들이면 파스타와 피자 중심의 식사도 한층 더 풍성하게!</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Platinum Tip</div>
+      <div class="tip-flow">VIP 우선 안내 → 커플 식사권 → 부라타 샐러드 추가</div>
+      <div class="tip-desc">50% 할인권은 가족 외식이나 모임을 위해 남겨두세요. 데이트는 가볍게, 큰 할인은 더 필요한 날에!</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">03</div>
+      <h2>온 가족이 함께하는<br>주말 외식</h2>
+      <p class="scenario-sub">오늘만큼은 혜택 아끼지 마세요 👑</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">주말 웨이팅에는 VIP 우선 안내</div>
+          <div class="step-desc">기다리는 시간부터 줄여보세요.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">스테이크 패밀리 식사권으로 푸짐하게</div>
+          <div class="menu-list">
+            <span class="menu-chip">🥩 포레스트 스트립 스테이크</span>
+            <span class="menu-chip">🍚 톡톡갈릭 시즐링 라이스</span>
+            <span class="menu-chip">🍕 블라썸 프로슈토 &amp; 스노잉 피자</span>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">먹고 싶은 메뉴는 50% 할인으로 추가</div>
+          <div class="step-desc">가족이 좋아하는 메뉴를 추가하고 50% 메뉴 할인권까지 활용해 보세요.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 4</div>
+          <div class="step-title">가족 외식의 마무리는 디저트까지 🍰</div>
+          <div class="step-desc">아이부터 어른까지, 식사의 마지막까지 플래티넘답게!</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Platinum Tip</div>
+      <div class="tip-flow">VIP 우선 안내 → 스테이크 패밀리 식사권 → 50% 할인 → 디저트 무료</div>
+      <div class="tip-desc">"이래서 플래티넘 샀지!" 싶은 주말 외식 완성 👑</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">04</div>
+      <h2>친구들과 함께<br>여유로운 브런치</h2>
+      <p class="scenario-sub">먹고 싶은 메뉴는 다양하게, 혜택까지 챙겨보세요.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">웨이팅이 있다면 VIP 우선 안내</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">여럿이 함께라면 세트 메뉴로 다양하게</div>
+          <div class="step-desc">피자도, 파스타도, 스테이크도 한 번에 즐기고 싶다면 세트 메뉴를 선택해 보세요.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">VIP 세트 30% 할인 챙기기</div>
+          <div class="step-desc">여럿이 모여 메뉴를 다양하게 즐기고 싶은 날, VIP 혜택을 제대로 활용해 보세요.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 4</div>
+          <div class="step-title">아쉬운 마무리는 디저트로 🍰</div>
+          <div class="step-desc">이야기가 아직 끝나지 않았다면, 디저트 무료 혜택도 확인해 보세요.</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Platinum Tip</div>
+      <div class="tip-flow">VIP 우선 안내 → 세트 30% 할인 → 디저트 무료</div>
+      <div class="tip-desc">세트 30% 할인처럼 반복해서 활용할 수 있는 VIP 혜택도 적극적으로 챙겨보세요!</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">05</div>
+      <h2>가볍게 먹는 날도<br>VIP처럼</h2>
+      <p class="scenario-sub">플래티넘 혜택을 더하면 평범한 한 끼도 달라져요.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">점심 웨이팅에는 VIP 우선 안내</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">가볍고 알차게, 갓성비 매드런치</div>
+          <div class="step-desc">큰 식사권이나 50% 할인권을 사용하지 않고도 합리적인 가격으로 즐겨보세요.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">식사 후 디저트까지 챙기기 🍰</div>
+          <div class="step-desc">가볍게 먹으러 온 날에도 플래티넘은 플래티넘!</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Platinum Tip</div>
+      <div class="tip-flow">VIP 우선 안내 → 갓성비 매드런치 → 디저트 무료</div>
+      <div class="tip-desc">큰 쿠폰은 특별한 약속을 위해 남겨두고, 평범한 점심에는 VIP 혜택만으로 알차게!</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="scenario-header">
+      <div class="scene-num">06</div>
+      <h2>혼자서도 즐기는<br>스몰 럭셔리</h2>
+      <p class="scenario-sub">오늘은 취향대로 스테이크부터 와인 한 잔까지.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 1</div>
+          <div class="step-title">혼자여도 기다리지 말고 VIP 우선 안내</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 2</div>
+          <div class="step-title">오늘은 나를 위해, 스테이크 50% 할인</div>
+          <div class="step-desc">평소 먹고 싶었던 스테이크를 골라 50% 메뉴 할인권으로 부담은 가볍게. 오늘만큼은 온전히 내 취향대로!</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-marker"><div class="step-dot"></div><div class="step-line"></div></div>
+        <div class="step-body">
+          <div class="step-label">Step 3</div>
+          <div class="step-title">와인 한 잔, 그리고 디저트까지 🍰</div>
+          <div class="step-desc">혼자 보내는 한 끼도 천천히, 제대로 즐겨보세요.</div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-tag">Platinum Tip</div>
+      <div class="tip-flow">VIP 우선 안내 → 스테이크 50% 할인 → 와인 → 디저트 무료</div>
+      <div class="tip-desc">혼자라서 더 제대로 누리는 플래티넘 활용법 ✨</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
